@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/shape_radius_000"
+    android:id="@+id/list_00_constraintlayout">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:id="@+id/list_00_cardview"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/list_00_img_cv"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:cardCornerRadius="5dp"
+                android:layout_margin="5dp"
+                app:strokeColor="@color/bsu_color_black"
+                app:strokeWidth="0.25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/list_00_img"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/list_00_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/list_00_more"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/list_00_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="subtitle"
+                app:layout_constraintEnd_toStartOf="@+id/list_00_more"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
+                app:layout_constraintTop_toBottomOf="@+id/list_00_title" />
+
+            <TextView
+                android:id="@+id/list_00_subtitle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="subtitle2"
+                app:layout_constraintEnd_toEndOf="@+id/list_00_subtitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
+                app:layout_constraintTop_toBottomOf="@+id/list_00_subtitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/list_00_more"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="30dp"
+                android:layout_height="75dp"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/icon_more"
+                app:iconGravity="textStart"
+                app:iconSize="30dp"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

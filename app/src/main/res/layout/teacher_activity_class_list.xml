@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/semi_gray"
+    tools:context=".teacher.teacher_activity_class_list">
+
+    <RelativeLayout
+        android:id="@+id/tacl_rl_00"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tacl_btnBack"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:icon="@drawable/icon_back"
+            app:iconGravity="textStart"
+            app:iconTint="@color/bsu_color_red"
+            app:iconSize="30dp"
+            app:cornerRadius="50dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tacl_btnAdd"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/icon_add"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:iconGravity="textStart"
+            app:iconSize="30dp"
+            app:iconTint="@color/bsu_color_red"
+            app:cornerRadius="50dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tacl_rl_00"
+        app:layout_constraintTop_toBottomOf="@id/tacl_rl_00">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tacl_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

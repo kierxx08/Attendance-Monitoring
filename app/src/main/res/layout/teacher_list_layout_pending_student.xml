@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/shape_radius_000"
+    android:id="@+id/list_00_constraintlayout">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:id="@+id/list_00_cardview"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tllps_img_cv"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:cardCornerRadius="37.5dp"
+                android:layout_margin="5dp"
+                app:strokeColor="@color/bsu_color_black"
+                app:strokeWidth="0.25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/tllps_img"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tllps_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="30dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tllps_img_cv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tllps_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginRight="30dp"
+                android:text="subtitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tllps_img_cv"
+                app:layout_constraintTop_toBottomOf="@+id/tllps_title" />
+
+            <Button
+                android:id="@+id/tllps_decline"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                app:iconGravity="textStart"
+                android:text="Declined"
+                android:textSize="10sp"
+                app:strokeColor="@color/bsu_color_red"
+                app:strokeWidth="2dp"
+                app:iconSize="30dp"
+                android:layout_marginEnd="10dp"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tllps_accept"/>
+
+            <Button
+                android:id="@+id/tllps_accept"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                app:iconGravity="textStart"
+                android:text="Accept"
+                android:textSize="10sp"
+                android:textColor="#186E00"
+                app:strokeColor="#186E00"
+                app:strokeWidth="2dp"
+                app:iconSize="30dp"
+                android:layout_marginEnd="10dp"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

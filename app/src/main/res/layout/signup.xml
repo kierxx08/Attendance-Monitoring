@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup">
+
+
+    <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@drawable/login_design_001" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:rotation="180"
+        android:layout_height="250dp"
+        android:background="@drawable/login_design_001" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/signup_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_margin="16dp"
+        app:backgroundTint="@android:color/white"
+        app:tint="@color/bsu_color_red"
+        android:contentDescription="Sample"
+        app:srcCompat="@drawable/icon_back"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ScrollView
+        android:id="@+id/signup_scroll"
+        android:background="@drawable/shape_radius_001"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="Sign Up as Student, "
+                    android:layout_centerVertical="true"
+                    android:visibility="invisible"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:text="Student"
+                android:theme="@style/SwitchCompatTheme"
+                android:checked="false"/>
+
+            </RelativeLayout>
+            <!--
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_type"
+                style="@style/DropdownLayoutStyle"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                app:endIconTint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="Usertype">
+
+                <AutoCompleteTextView
+                    android:id="@+id/signup_act_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_srcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeWidth="1dp"
+                app:startIconContentDescription="user"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                android:hint="SR Code">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_tie_srcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/signup_til_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="1dp"
+                    app:startIconContentDescription="user"
+                    android:textColorHint="@color/white"
+                    app:hintTextColor="@color/white"
+                    style="@style/LoginTextInputLayoutStyle"
+                    android:layout_toStartOf="@id/signup_space_000"
+                    android:hint="Firstname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signup_tie_firstname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName|textCapWords"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
+                    android:id="@+id/signup_space_000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/signup_til_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="1dp"
+                    app:startIconContentDescription="user"
+                    android:textColorHint="@color/white"
+                    app:hintTextColor="@color/white"
+                    style="@style/LoginTextInputLayoutStyle"
+                    android:layout_toEndOf="@id/signup_space_000"
+                    android:hint="Lastname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signup_tie_lastname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName|textCapWords"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeWidth="1dp"
+                app:startIconContentDescription="user"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                android:hint="Email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_tie_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebEmailAddress"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeWidth="1dp"
+                app:startIconContentDescription="user"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                android:hint="Phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_tie_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_sex"
+                style="@style/DropdownLayoutStyle"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                app:endIconTint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="Sex">
+
+                <AutoCompleteTextView
+                    android:id="@+id/signup_act_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_til_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeWidth="1dp"
+                app:startIconContentDescription="user"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                app:passwordToggleTint="@android:color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                app:passwordToggleEnabled="true"
+                android:hint="Password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_tie_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/signup_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIGNUP"
+                android:textColor="@android:color/white"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                app:strokeColor="#9A9A9A"
+                app:rippleColor="#c1dfff"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
