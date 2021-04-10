@@ -85,8 +85,6 @@ public class sample extends AppCompatActivity {
         String mobile_mac_addres = getMacAddress();
         text.setText(androidId);
 
-        //sample
-
     }
     public String getMacAddress(){
         try{
