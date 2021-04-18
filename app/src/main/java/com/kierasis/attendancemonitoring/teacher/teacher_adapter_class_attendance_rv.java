@@ -2,10 +2,12 @@ package com.kierasis.attendancemonitoring.teacher;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class teacher_adapter_class_students_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<HashMap<String,String>> mDataset;
     private Context mcontext;
@@ -58,7 +60,7 @@ public class teacher_adapter_class_students_rv extends RecyclerView.Adapter<Recy
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public teacher_adapter_class_students_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
+    public teacher_adapter_class_attendance_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
 
         mcontext = context;
         mactivity = (Activity)context;
@@ -87,7 +89,7 @@ public class teacher_adapter_class_students_rv extends RecyclerView.Adapter<Recy
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (viewType == VIEW_TYPE_ITEM) {
-            view = LayoutInflater.from(mactivity).inflate(R.layout.list_00_layout, parent, false);
+            view = LayoutInflater.from(mactivity).inflate(R.layout.list_01_layout, parent, false);
 
             ViewHolderRow vHolder = new ViewHolderRow(view);
 
@@ -122,10 +124,12 @@ public class teacher_adapter_class_students_rv extends RecyclerView.Adapter<Recy
 
             ViewHolderRow userViewHolder = (ViewHolderRow) holder;
 
-            userViewHolder.title.setText(map.get("KEY_EMAIL"));
-            userViewHolder.subtitle.setText(map.get("KEY_PHONE"));
-            userViewHolder.subtitle2.setText("");
-            Picasso.get().load(map.get("KEY_URL")).into(userViewHolder.pic);
+            userViewHolder.box.setBackgroundColor(Color.parseColor(map.get("KEY_COLOR")));
+            userViewHolder.month.setText(map.get("KEY_MONTH"));
+            userViewHolder.day.setText(map.get("KEY_DAY"));
+            userViewHolder.title.setText(map.get("KEY_TITLE"));
+            userViewHolder.subtitle.setText("Start: " + map.get("KEY_START"));
+            userViewHolder.subtitle2.setText("End: " + map.get("KEY_END"));
 
             //userViewHolder.email.setText(contact.getPhone());
 
@@ -174,17 +178,19 @@ public class teacher_adapter_class_students_rv extends RecyclerView.Adapter<Recy
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class ViewHolderRow extends RecyclerView.ViewHolder {
-        public TextView title, subtitle, subtitle2;
-        public ImageView pic;
+        public TextView title, subtitle, subtitle2, month, day;
+        LinearLayout box;
         public MaterialButton btn_more;
 
         public ViewHolderRow(View v) {
             super(v);
-            title = (TextView)v.findViewById(R.id.list_00_title);
-            subtitle = (TextView)v.findViewById(R.id.list_00_subtitle);
-            subtitle2 = (TextView)v.findViewById(R.id.list_00_subtitle2);
-            btn_more = v.findViewById(R.id.list_00_more);
-            pic = v.findViewById(R.id.list_00_img);
+            box = (LinearLayout)v.findViewById(R.id.list_01_img);
+            month = (TextView)v.findViewById(R.id.list_01_month);
+            day = (TextView)v.findViewById(R.id.list_01_day);
+            title = (TextView)v.findViewById(R.id.list_01_title);
+            subtitle = (TextView)v.findViewById(R.id.list_01_subtitle);
+            subtitle2 = (TextView)v.findViewById(R.id.list_01_subtitle2);
+            btn_more = v.findViewById(R.id.list_01_more);
         }
 
         public void bind(final HashMap<String,String> item, final OnItemClickListener listener) {

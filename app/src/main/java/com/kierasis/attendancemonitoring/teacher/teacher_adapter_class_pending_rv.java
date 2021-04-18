@@ -2,8 +2,6 @@ package com.kierasis.attendancemonitoring.teacher;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,33 +9,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.button.MaterialButton;
 import com.kierasis.attendancemonitoring.R;
-import com.kierasis.attendancemonitoring.adapter_00;
-import com.kierasis.attendancemonitoring.ext_00;
-import com.kierasis.attendancemonitoring.my_singleton;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class teacher_adapter_class_pending_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -145,7 +125,7 @@ public class teacher_adapter_class_pending_rv extends RecyclerView.Adapter<Recyc
             return vHolder;
 
         } else if (viewType == VIEW_TYPE_LOADING) {
-             view = LayoutInflater.from(mactivity).inflate(R.layout.list_01_load_layout, parent, false);
+             view = LayoutInflater.from(mactivity).inflate(R.layout.list_00_load_layout, parent, false);
             return new ViewHolderLoading(view);
         }
 

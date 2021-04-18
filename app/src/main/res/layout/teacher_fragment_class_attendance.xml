@@ -3,14 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".teacher.teacher_fragment_class_attendance">
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/tfca_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:backgroundTint="@android:color/white"
+        app:tint="@color/bsu_color_red"
+        app:srcCompat="@drawable/icon_add"
+        android:visibility="gone"/>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/tfca_loader"
+        style="@style/SpinKitView.Small.Wave"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        app:SpinKit_Color="@android:color/holo_red_light" />
+
     <ImageView
+        android:id="@+id/tfca_no_net"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:src="@drawable/no_net"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/tfca_no_data"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:src="@drawable/no_data"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/tfca_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tfca_Recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Students"
+            android:textSize="18sp"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

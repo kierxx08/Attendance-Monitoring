@@ -171,6 +171,7 @@ public class teacher_main_activity extends AppCompatActivity implements Navigati
             @Override
             public void onClick(View view) {
                 openDialog();
+                //startActivity(new Intent(teacher_main_activity.this, teacher_activity_create_attendance.class));
             }
         });
 

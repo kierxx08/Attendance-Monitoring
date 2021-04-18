@@ -36,6 +36,7 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/list_01_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MAR"
@@ -56,6 +57,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/list_01_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="24"
@@ -124,14 +126,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/list_01_more"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="75dp"
+                app:cornerRadius="50dp"
                 app:icon="@drawable/icon_more"
-                android:layout_margin="5dp"
                 app:iconGravity="textStart"
                 app:iconSize="30dp"
                 app:iconTint="@color/black"
-                app:cornerRadius="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

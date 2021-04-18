@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +18,13 @@ import com.kierasis.attendancemonitoring.R;
 
 public class teacher_activity_class_view extends AppCompatActivity {
 
+    public static Activity tacv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_activity_class_view);
+        tacv = this;
         ImageView img = findViewById(R.id.img);
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);

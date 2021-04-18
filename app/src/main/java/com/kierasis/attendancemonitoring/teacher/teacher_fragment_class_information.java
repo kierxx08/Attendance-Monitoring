@@ -1,5 +1,8 @@
 package com.kierasis.attendancemonitoring.teacher;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -32,7 +35,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 
 public class teacher_fragment_class_information extends Fragment {
@@ -47,6 +52,7 @@ public class teacher_fragment_class_information extends Fragment {
     public SharedPreferences device_info, user_info, activity_info;
 
     TextView class_code,class_name, total_student, class_created;
+
 
     public teacher_fragment_class_information() {
         // Required empty public constructor
@@ -112,6 +118,21 @@ public class teacher_fragment_class_information extends Fragment {
                         class_name.setText(jsonObject.getString("class_name"));
                         total_student.setText(jsonObject.getString("total"));
                         class_created.setText(jsonObject.getString("class_created"));
+
+                        class_code.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Code to Copy the content of Text View to the Clip board.
+                                String text;
+                                text = class_code.getText().toString();
+
+                                ClipboardManager clipboard = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText("text", text);
+                                clipboard.setPrimaryClip(clip);
+
+                                Toast.makeText(v.getContext(), "Text Copied", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     }else{
                         server_error.setVisibility(View.VISIBLE);
