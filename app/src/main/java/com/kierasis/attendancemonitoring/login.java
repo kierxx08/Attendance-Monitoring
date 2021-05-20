@@ -49,7 +49,7 @@ import java.util.Map;
 public class login extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
-    TextView signup_text;
+    TextView signup_text, login_forgot;
     TextInputEditText username, password;
     TextInputLayout til_username, til_password;
     Button btn_login;
@@ -84,6 +84,7 @@ public class login extends AppCompatActivity {
         username = findViewById(R.id.login_tie_username);
         password = findViewById(R.id.login_tie_password);
         signup_text = findViewById(R.id.login_signup);
+        login_forgot = findViewById(R.id.login_forgot);
         btn_login = findViewById(R.id.login_button);
 
         username.addTextChangedListener(new TextWatcher() {
@@ -138,6 +139,14 @@ public class login extends AppCompatActivity {
             }
         });
 
+        login_forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(login.this, forgot_password.class));
+                hideKeybaord();
+            }
+        });
+
         String loginStatus = user_info.getString("login_state","");
 
         if(loginStatus.equals("loggedin")){
@@ -181,6 +190,7 @@ public class login extends AppCompatActivity {
                             user_editor.putString("user_srcode",jsonObject.getString("srcode"));
                         }
                         user_editor.putString("account_id",jsonObject.getString("account_id"));
+                        user_editor.putString("user_name",txt_username);
                         user_editor.putString("user_fname",jsonObject.getString("fname"));
                         user_editor.putString("user_lname",jsonObject.getString("lname"));
                         user_editor.putString("user_email",jsonObject.getString("email"));

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".teacher.teacher_fragment_class_information"
     android:background="#666666">
 
@@ -42,7 +43,7 @@
     <LinearLayout
         android:id="@+id/tfci_ll"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -201,6 +202,41 @@
         </RelativeLayout>
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:layout_marginBottom="15dp"
+            android:gravity="center|bottom"
+            android:orientation="vertical" >
+
+            <Button
+            android:id="@+id/print_button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:text="PRINT ATTENDANCE"
+            android:textColor="@android:color/white"
+            app:rippleColor="@color/bsu_color_red"
+            app:strokeColor="@color/bsu_color_red" />
+
+            <Button
+                android:id="@+id/delete_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:text="DELETE CLASS"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                app:rippleColor="@color/bsu_color_red"
+                app:strokeColor="@color/bsu_color_red" />
+        </LinearLayout>
     </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

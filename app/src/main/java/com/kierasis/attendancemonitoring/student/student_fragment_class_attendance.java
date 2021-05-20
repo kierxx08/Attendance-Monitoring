@@ -1,5 +1,6 @@
-package com.kierasis.attendancemonitoring.teacher;
+package com.kierasis.attendancemonitoring.student;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kierasis.attendancemonitoring.R;
 import com.kierasis.attendancemonitoring.my_singleton;
 
@@ -36,12 +38,13 @@ import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class teacher_fragment_class_students extends Fragment {
 
+public class student_fragment_class_attendance extends Fragment {
     View v;
+
     ArrayList<HashMap<String,String>> getDatalist;
     private RecyclerView mrecyclerView;
-    teacher_adapter_class_students_rv mAdapter;
+    student_adapter_class_attendance_rv mAdapter;
 
     SwipeRefreshLayout refresh;
 
@@ -55,17 +58,29 @@ public class teacher_fragment_class_students extends Fragment {
 
     public SharedPreferences device_info, user_info, activity_info;
 
-    public teacher_fragment_class_students() {
+    public student_fragment_class_attendance() {
         // Required empty public constructor
+    }
+
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getDatalist = new ArrayList<>();
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.teacher_fragment_class_students, container, false);
-        mrecyclerView = v.findViewById(R.id.tfcs_Recyclerview);
-        refresh = v.findViewById(R.id.tfcs_refresh);
+        v = inflater.inflate(R.layout.student_fragment_class_attendance, container, false);
+
+        mrecyclerView = v.findViewById(R.id.sfca_Recyclerview);
+        refresh = v.findViewById(R.id.sfca_refresh);
 
         user_info = v.getContext().getSharedPreferences("user-info", MODE_PRIVATE);
         device_info = v.getContext().getSharedPreferences("device-info", MODE_PRIVATE);
@@ -73,9 +88,12 @@ public class teacher_fragment_class_students extends Fragment {
 
         isUna = true;
 
-        loader = v.findViewById(R.id.tfcs_loader);
-        no_net = v.findViewById(R.id.tfcs_no_net);
-        no_data = v.findViewById(R.id.tfcs_no_data);
+        loader = v.findViewById(R.id.sfca_loader);
+        no_net = v.findViewById(R.id.sfca_no_net);
+        no_data = v.findViewById(R.id.sfca_no_data);
+        refresh.setRefreshing(true);
+
+
 
         total(true);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -101,16 +119,26 @@ public class teacher_fragment_class_students extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getDatalist = new ArrayList<>();
+    private void reload_list() {
+        mrecyclerView.setVisibility(View.GONE);
+        getDatalist.clear();
+        start_no = 0;
+        loader.setVisibility(View.VISIBLE);
+        no_net.setVisibility(View.GONE);
+        no_data.setVisibility(View.GONE);
 
-        //total();
+        Log.d("tag", "Clearing Data . . .");
+
+        if(isUna){
+            total(true);
+        }else if(isFinish || getDatalist.size()==0) {
+            total(false);
+        }
     }
 
+
     private void total(boolean isfirst_run){
-        String uRl = "https://atm-bsumalvar.000webhostapp.com/app/teacher_get_class_student_list.php";
+        String uRl = "https://atm-bsumalvar.000webhostapp.com/app/get_attendance_list.php";
         StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -132,7 +160,7 @@ public class teacher_fragment_class_students extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String > param = new  HashMap<>();
-                param.put("get", "accepted_total");
+                param.put("get", "total");
                 param.put("class_id", activity_info.getString("class_id",""));
                 param.put("account_id", user_info.getString("account_id",""));
                 param.put("device_id", device_info.getString("device_id",""));
@@ -148,13 +176,13 @@ public class teacher_fragment_class_students extends Fragment {
 
     private void data(final int start, boolean isfirst_run){
 
-        String uRl = "https://atm-bsumalvar.000webhostapp.com/app/teacher_get_class_student_list.php";
+        String uRl = "https://atm-bsumalvar.000webhostapp.com/app/get_attendance_list.php";
         StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject jsonObject = null;
                 JSONArray json_list = null;
-                String error;
+                String error, error_desc;
 
                 mrecyclerView.setVisibility(View.GONE);
 
@@ -162,7 +190,8 @@ public class teacher_fragment_class_students extends Fragment {
                     jsonObject = new JSONObject(response.toString());
                     error = jsonObject.getString("error");
                     if(error.equals("false")){
-                        json_list = new JSONArray(jsonObject.getString("students"));
+                        Log.d("tag", "I'm Enter this Section Right Now . . .");
+                        json_list = new JSONArray(jsonObject.getString("attendance"));
                         if(!isfirst_run&&getDatalist.size()!=0) {
                             getDatalist.remove(getDatalist.size() - 1);
                             mAdapter.notifyItemRemoved(getDatalist.size());
@@ -170,16 +199,29 @@ public class teacher_fragment_class_students extends Fragment {
 
                         for(int i=0;i<json_list.length();i++){
                             JSONObject jresponse = json_list.getJSONObject(i);
-                            String student_id = jresponse.getString("account_id");
-                            String nickname = jresponse.getString("name");
-                            String number = jresponse.getString("date");
-                            String url = jresponse.getString("img_url");
+                            String attendance_id = jresponse.getString("attendance_id");
+                            String title = jresponse.getString("title");
+                            String color = jresponse.getString("color");
+                            String month = jresponse.getString("month");
+                            String day = jresponse.getString("day");
+                            String start = jresponse.getString("start");
+                            String end = jresponse.getString("end");
+                            String edited = jresponse.getString("edited");
+                            String date = jresponse.getString("date");
+                            String status = jresponse.getString("status");
+
 
                             HashMap<String,String> map = new HashMap<>();
-                            map.put("STUDENT_ID",student_id);
-                            map.put("KEY_EMAIL",nickname);
-                            map.put("KEY_PHONE","");
-                            map.put("KEY_URL",url);
+                            map.put("KEY_ATTENDANCE_ID",attendance_id);
+                            map.put("KEY_TITLE",title);
+                            map.put("KEY_COLOR",color);
+                            map.put("KEY_MONTH",month);
+                            map.put("KEY_DAY",day);
+                            map.put("KEY_START",start);
+                            map.put("KEY_END",end);
+                            map.put("KEY_EDITED",edited);
+                            map.put("KEY_DATE",date);
+                            map.put("KEY_STATUS",status);
                             getDatalist.add(map);
 
                             if(!isfirst_run) {
@@ -191,13 +233,19 @@ public class teacher_fragment_class_students extends Fragment {
                             net = true;
                             loader.setVisibility(View.GONE);
                             no_net.setVisibility(View.GONE);
+                            no_data.setVisibility(View.GONE);
 
                         }
 
+                        Log.d("tag", "I'm Here in the Last Section Right Now . . .");
                     }else{
                         //Toast.makeText(v.getContext(), jsonObject.getString("error_desc"), Toast.LENGTH_SHORT).show();
+
+                        error_desc = jsonObject.getString("error_desc");
+                        if(error_desc.equals("No Data") && getDatalist.size()==0) {
+                            no_data.setVisibility(View.VISIBLE);
+                        }
                         loader.setVisibility(View.GONE);
-                        no_data.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -233,7 +281,7 @@ public class teacher_fragment_class_students extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String > param = new  HashMap<>();
                 param.put("start", String.valueOf(start));
-                param.put("get", "accepted");
+                param.put("get", "attendance");
                 param.put("class_id", activity_info.getString("class_id",""));
                 param.put("account_id", user_info.getString("account_id",""));
                 param.put("device_id", device_info.getString("device_id",""));
@@ -249,27 +297,29 @@ public class teacher_fragment_class_students extends Fragment {
 
     private void call() {
         mrecyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new teacher_adapter_class_students_rv(v.getContext(), getDatalist, mrecyclerView);
+        mAdapter = new student_adapter_class_attendance_rv(v.getContext(), getDatalist, mrecyclerView);
         mrecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemListener(new teacher_adapter_class_students_rv.OnItemClickListener() {
+        mAdapter.setOnItemListener(new student_adapter_class_attendance_rv.OnItemClickListener() {
             @Override
             public void onItemClick(HashMap<String, String> item) {
-                String student_id = item.get("STUDENT_ID");
-                String mPhone = item.get("KEY_PHONE");
-                //Toast.makeText(v.getContext(),"Name: "+mEmail+"\nFunction: Soon",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(), teacher_activity_class_student_view.class);
-                intent.putExtra("student_id",student_id);
-                startActivity(intent);
+                String mEmail = item.get("KEY_ATTENDANCE_ID");
+                Toast.makeText(v.getContext(),"Name: "+mEmail+"\nFunction: Soon",Toast.LENGTH_LONG).show();
+            }
+            public void onCheckClick(HashMap<String, String> item) {
+                String attendance_id = item.get("KEY_ATTENDANCE_ID");
+                //Toast.makeText(v.getContext(),"Accept CScon_id: "+CScon_id,Toast.LENGTH_LONG).show();
+                checking_in(attendance_id);
             }
         });
 
-        mAdapter.setOnLoadMoreListener(new teacher_adapter_class_students_rv.OnLoadMoreListener() {
+        mAdapter.setOnLoadMoreListener(new student_adapter_class_attendance_rv.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 if (getDatalist.size() < total) {
                     getDatalist.add(null);
                     mAdapter.notifyItemInserted(getDatalist.size() - 1);
+                    Log.d("tag", "Loading data from "+start_no+" - "+(start_no+10));
                     data(start_no, false);
 
                 } else {
@@ -280,5 +330,65 @@ public class teacher_fragment_class_students extends Fragment {
             }
         });
     }
+
+    private void checking_in(String attendance_id) {
+
+        //Toast.makeText(v.getContext(),"Check in: "+attendance_id+"\nFunction: Soon",Toast.LENGTH_LONG).show();
+
+        final ProgressDialog progressDialog = new ProgressDialog(v.getContext(), R.style.default_dialog);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setTitle("Attending Class");
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        String uRl = "https://atm-bsumalvar.000webhostapp.com/app/student_attend_class.php";
+        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject jsonObject = null;
+                String error;
+
+                try {
+                    progressDialog.dismiss();
+                    jsonObject = new JSONObject(response.toString());
+                    error = jsonObject.getString("error");
+                    if(error.equals("false")){
+                        Toast.makeText(v.getContext(), "Successful Attended", Toast.LENGTH_SHORT).show();
+                        refresh.setRefreshing(true);
+                        reload_list();
+                    }else{
+                        Toast.makeText(v.getContext(), jsonObject.getString("error_desc"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    Toast.makeText(v.getContext(), "tacl: JSON Error", Toast.LENGTH_SHORT).show();
+                    Log.d("tag", "onErrorResponse: " + response);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(v.getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String > param = new  HashMap<>();
+                param.put("attendance_id", attendance_id);
+                param.put("class_id", activity_info.getString("class_id",""));
+                param.put("account_id", user_info.getString("account_id",""));
+                param.put("device_id", device_info.getString("device_id",""));
+                return param;
+            }
+
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setShouldCache(false);
+        my_singleton.getInstance(v.getContext()).addToRequestQueue(request);
+    }
+
 
 }

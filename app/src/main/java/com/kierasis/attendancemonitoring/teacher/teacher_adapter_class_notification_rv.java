@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.kierasis.attendancemonitoring.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class teacher_adapter_class_notification_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<HashMap<String,String>> mDataset;
     private Context mcontext;
@@ -60,7 +61,7 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public teacher_adapter_class_attendance_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
+    public teacher_adapter_class_notification_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
 
         mcontext = context;
         mactivity = (Activity)context;
@@ -89,18 +90,10 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (viewType == VIEW_TYPE_ITEM) {
-            view = LayoutInflater.from(mactivity).inflate(R.layout.list_01_layout, parent, false);
+            view = LayoutInflater.from(mactivity).inflate(R.layout.list_02_layout, parent, false);
 
             ViewHolderRow vHolder = new ViewHolderRow(view);
 
-            vHolder.btn_more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(mactivity,String.valueOf(vHolder.getAdapterPosition())+": Edit and Remove Function",Toast.LENGTH_SHORT).show();
-
-                }
-            });
 
             return vHolder;
 
@@ -124,12 +117,9 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
 
             ViewHolderRow userViewHolder = (ViewHolderRow) holder;
 
-            userViewHolder.box.setBackgroundColor(Color.parseColor(map.get("KEY_COLOR")));
-            userViewHolder.month.setText(map.get("KEY_MONTH"));
-            userViewHolder.day.setText(map.get("KEY_DAY"));
-            userViewHolder.title.setText(map.get("KEY_TITLE"));
-            userViewHolder.subtitle.setText("Start: " + map.get("KEY_START"));
-            userViewHolder.subtitle2.setText("End: " + map.get("KEY_END"));
+            userViewHolder.text.setText(map.get("KEY_TEXT"));
+            userViewHolder.date.setText(map.get("KEY_DATE"));
+            Picasso.get().load(map.get("KEY_IMG")).into(userViewHolder.img);
 
             //userViewHolder.email.setText(contact.getPhone());
 
@@ -178,20 +168,14 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class ViewHolderRow extends RecyclerView.ViewHolder {
-        public TextView title, subtitle, subtitle2, month, day;
-        LinearLayout box;
-        public MaterialButton btn_more;
+        public TextView text, date;
+        ImageView img;
 
         public ViewHolderRow(View v) {
             super(v);
-            box = (LinearLayout)v.findViewById(R.id.list_01_img);
-            month = (TextView)v.findViewById(R.id.list_01_month);
-            day = (TextView)v.findViewById(R.id.list_01_day);
-            title = (TextView)v.findViewById(R.id.list_01_title);
-            subtitle = (TextView)v.findViewById(R.id.list_01_subtitle);
-            subtitle2 = (TextView)v.findViewById(R.id.list_01_subtitle2);
-            btn_more = v.findViewById(R.id.list_01_more);
-            btn_more.setVisibility(View.INVISIBLE);
+            text = (TextView)v.findViewById(R.id.list_02_text);
+            date = (TextView)v.findViewById(R.id.list_02_date);
+            img = (ImageView)v.findViewById(R.id.list_02_img);
         }
 
         public void bind(final HashMap<String,String> item, final OnItemClickListener listener) {

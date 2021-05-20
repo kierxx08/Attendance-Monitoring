@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -48,10 +49,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.kierasis.attendancemonitoring.ConnectionDetector;
 import com.kierasis.attendancemonitoring.R;
+import com.kierasis.attendancemonitoring.about;
 import com.kierasis.attendancemonitoring.adapter_00;
 import com.kierasis.attendancemonitoring.ext_00;
 import com.kierasis.attendancemonitoring.login;
 import com.kierasis.attendancemonitoring.my_singleton;
+import com.kierasis.attendancemonitoring.profile;
 import com.kierasis.attendancemonitoring.sample;
 import com.kierasis.attendancemonitoring.student.student_main_activity;
 
@@ -92,6 +95,7 @@ public class teacher_main_activity extends AppCompatActivity implements Navigati
     ProgressBar loader;
     ImageView no_net, no_data, add_class_tut;
 
+    public static Activity teacher_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +111,8 @@ public class teacher_main_activity extends AppCompatActivity implements Navigati
         }
 
          */
+
+        teacher_main = this;
 
         user_info = getSharedPreferences("user-info", MODE_PRIVATE);
         device_info = getSharedPreferences("device-info", MODE_PRIVATE);
@@ -217,7 +223,10 @@ public class teacher_main_activity extends AppCompatActivity implements Navigati
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_profile:
-                Toast.makeText(teacher_main_activity.this," Soon",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(teacher_main_activity.this," Soon",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(teacher_main_activity.this, profile.class);
+                intent.putExtra("type","teacher");
+                startActivity(intent);
                 break;
             case R.id.nav_logout:
                 String login_status = user_info.getString("login_state","");
@@ -226,7 +235,10 @@ public class teacher_main_activity extends AppCompatActivity implements Navigati
                 }
                 break;
             case R.id.nav_about:
-                Toast.makeText(teacher_main_activity.this," Soon ",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(teacher_main_activity.this," Soon ",Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(teacher_main_activity.this, about.class);
+                intent2.putExtra("type","teacher");
+                startActivity(intent2);
                 break;
         }
 

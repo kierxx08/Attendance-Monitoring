@@ -368,7 +368,7 @@ public class splash extends AppCompatActivity {
                         editor.apply();
                         show_update();
 
-                        Toast.makeText(splash.this, "I'm Here", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(splash.this, "I'm Here", Toast.LENGTH_SHORT).show();
                     }else{
                         error_desc = jsonObject.getString("error_desc");
                         Toast.makeText(splash.this, error_desc, Toast.LENGTH_SHORT).show();

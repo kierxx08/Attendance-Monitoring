@@ -137,6 +137,7 @@
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/login_no_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/login_scroll"
@@ -166,5 +167,25 @@
                 app:outlineColor="#000000"
                 app:outlineWidth="0.5" />
         </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_no_account"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true">
+        <com.iambedant.text.OutlineTextView
+            android:id="@+id/login_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center_horizontal"
+            android:text="Forgot Password"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:outlineColor="@color/bsu_color_black"
+            app:outlineWidth="0.5" />
+    </LinearLayout>
 
 </RelativeLayout>

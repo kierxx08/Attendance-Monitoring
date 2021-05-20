@@ -25,14 +25,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/list_00_img_cv"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:id="@+id/list_02_img_cv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 app:cardCornerRadius="5dp"
+                android:layout_margin="5dp"
                 app:strokeColor="@color/bsu_color_black"
                 app:strokeWidth="0.25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -42,63 +42,41 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/list_00_img"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:id="@+id/list_02_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
             </com.google.android.material.card.MaterialCardView>
+
             <TextView
-                android:id="@+id/list_00_title"
+                android:id="@+id/list_02_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="13dp"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Title"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/list_00_more"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/list_00_subtitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="subtitle"
-                app:layout_constraintEnd_toStartOf="@+id/list_00_more"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
-                app:layout_constraintTop_toBottomOf="@+id/list_00_title" />
-
-            <TextView
-                android:id="@+id/list_00_subtitle2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="subtitle2"
-                app:layout_constraintEnd_toEndOf="@+id/list_00_subtitle"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/list_00_img_cv"
-                app:layout_constraintTop_toBottomOf="@+id/list_00_subtitle" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/list_00_more"
-                android:visibility="gone"
-                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                android:layout_width="30dp"
-                android:layout_height="75dp"
-                app:cornerRadius="50dp"
-                app:icon="@drawable/icon_more"
-                app:iconGravity="textStart"
-                app:iconSize="30dp"
-                app:iconTint="@color/black"
+                android:maxLines="2"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/list_02_img_cv"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/list_02_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:text="Just Now"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

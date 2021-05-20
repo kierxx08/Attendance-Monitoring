@@ -173,7 +173,7 @@ public class teacher_fragment_class_attendance extends Fragment {
             public void onResponse(String response) {
                 JSONObject jsonObject = null;
                 JSONArray json_list = null;
-                String error;
+                String error, error_desc;
 
                 mrecyclerView.setVisibility(View.GONE);
 
@@ -226,8 +226,11 @@ public class teacher_fragment_class_attendance extends Fragment {
 
                     }else{
                         //Toast.makeText(v.getContext(), jsonObject.getString("error_desc"), Toast.LENGTH_SHORT).show();
+                        error_desc = jsonObject.getString("error_desc");
+                        if(error_desc.equals("No Data") && getDatalist.size()==0) {
+                            no_data.setVisibility(View.VISIBLE);
+                        }
                         loader.setVisibility(View.GONE);
-                        no_data.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -286,8 +289,11 @@ public class teacher_fragment_class_attendance extends Fragment {
         mAdapter.setOnItemListener(new teacher_adapter_class_attendance_rv.OnItemClickListener() {
             @Override
             public void onItemClick(HashMap<String, String> item) {
-                String mEmail = item.get("KEY_ATTENDANCE_ID");
-                Toast.makeText(v.getContext(),"Name: "+mEmail+"\nFunction: Soon",Toast.LENGTH_LONG).show();
+                String attendance_id = item.get("KEY_ATTENDANCE_ID");
+                //Toast.makeText(v.getContext(),"Name: "+mEmail+"\nFunction: Soon",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), teacher_activity_class_attendance_view.class);
+                intent.putExtra("attendance_id",attendance_id);
+                startActivity(intent);
             }
         });
 

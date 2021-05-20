@@ -1,8 +1,9 @@
-package com.kierasis.attendancemonitoring.teacher;
+package com.kierasis.attendancemonitoring.student;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.kierasis.attendancemonitoring.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class student_adapter_class_attendance_rv extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<HashMap<String,String>> mDataset;
     private Context mcontext;
@@ -37,11 +37,12 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private boolean isLoading;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 2;
     private int lastVisibleItem, totalItemCount;
 
     public interface OnItemClickListener {
         void onItemClick(HashMap<String, String> item);
+        void onCheckClick(HashMap<String, String> item);
     }
 
     public interface OnLoadMoreListener {
@@ -60,7 +61,7 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public teacher_adapter_class_attendance_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
+    public student_adapter_class_attendance_rv(Context context, ArrayList<HashMap<String, String>> myDataset, RecyclerView recyclerView) {
 
         mcontext = context;
         mactivity = (Activity)context;
@@ -93,14 +94,7 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
 
             ViewHolderRow vHolder = new ViewHolderRow(view);
 
-            vHolder.btn_more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    Toast.makeText(mactivity,String.valueOf(vHolder.getAdapterPosition())+": Edit and Remove Function",Toast.LENGTH_SHORT).show();
-
-                }
-            });
 
             return vHolder;
 
@@ -131,9 +125,25 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
             userViewHolder.subtitle.setText("Start: " + map.get("KEY_START"));
             userViewHolder.subtitle2.setText("End: " + map.get("KEY_END"));
 
+            if(map.get("KEY_STATUS").equals("1")){
+                userViewHolder.btn_check.setVisibility(View.VISIBLE);
+                userViewHolder.btn_warning.setVisibility(View.GONE);
+                userViewHolder.btn_ok.setVisibility(View.GONE);
+            }else if(map.get("KEY_STATUS").equals("2")){
+                userViewHolder.btn_check.setVisibility(View.GONE);
+                userViewHolder.btn_warning.setVisibility(View.VISIBLE);
+                userViewHolder.btn_ok.setVisibility(View.GONE);
+            }else if (map.get("KEY_STATUS").equals("3")){
+                userViewHolder.btn_check.setVisibility(View.GONE);
+                userViewHolder.btn_warning.setVisibility(View.GONE);
+                userViewHolder.btn_ok.setVisibility(View.VISIBLE);
+            }
+
+            //Log.d("tag",  map.get("KEY_ATTENDANCE_ID")+": "+ map.get("KEY_STATUS"));
+
             //userViewHolder.email.setText(contact.getPhone());
 
-            // binding item click listner
+            // binding item click listener
             userViewHolder.bind(mDataset.get(position), listener);
         } else if (holder instanceof ViewHolderLoading) {
             ViewHolderLoading loadingViewHolder = (ViewHolderLoading) holder;
@@ -180,7 +190,8 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
     public class ViewHolderRow extends RecyclerView.ViewHolder {
         public TextView title, subtitle, subtitle2, month, day;
         LinearLayout box;
-        public MaterialButton btn_more;
+        public MaterialButton btn_more, btn_check;
+        public ImageView btn_warning, btn_ok;
 
         public ViewHolderRow(View v) {
             super(v);
@@ -190,8 +201,9 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
             title = (TextView)v.findViewById(R.id.list_01_title);
             subtitle = (TextView)v.findViewById(R.id.list_01_subtitle);
             subtitle2 = (TextView)v.findViewById(R.id.list_01_subtitle2);
-            btn_more = v.findViewById(R.id.list_01_more);
-            btn_more.setVisibility(View.INVISIBLE);
+            btn_check = v.findViewById(R.id.list_01_check);
+            btn_ok = v.findViewById(R.id.list_01_ok);
+            btn_warning = v.findViewById(R.id.list_01_warning);
         }
 
         public void bind(final HashMap<String,String> item, final OnItemClickListener listener) {
@@ -199,6 +211,12 @@ public class teacher_adapter_class_attendance_rv extends RecyclerView.Adapter<Re
                 @Override
                 public void onClick(View v) {
                     listener.onItemClick(item);
+                }
+            });
+            btn_check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onCheckClick(item);
                 }
             });
         }

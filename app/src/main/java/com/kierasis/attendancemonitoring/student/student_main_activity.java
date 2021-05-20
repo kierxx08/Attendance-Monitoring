@@ -52,10 +52,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.kierasis.attendancemonitoring.MainActivity;
 import com.kierasis.attendancemonitoring.R;
+import com.kierasis.attendancemonitoring.about;
 import com.kierasis.attendancemonitoring.adapter_00;
 import com.kierasis.attendancemonitoring.ext_00;
 import com.kierasis.attendancemonitoring.login;
 import com.kierasis.attendancemonitoring.my_singleton;
+import com.kierasis.attendancemonitoring.profile;
 import com.kierasis.attendancemonitoring.teacher.teacher_activity_class_view;
 import com.kierasis.attendancemonitoring.teacher.teacher_dialog_add_class;
 import com.kierasis.attendancemonitoring.teacher.teacher_main_activity;
@@ -95,7 +97,7 @@ public class student_main_activity extends AppCompatActivity implements Navigati
     SwipeRefreshLayout refresh;
 
     ProgressBar loader;
-    ImageView no_net, no_data, add_class_tut;
+    ImageView no_net, no_data, add_class_tut, server_error;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,6 +172,7 @@ public class student_main_activity extends AppCompatActivity implements Navigati
         loader = findViewById(R.id.sma_loader);
         no_net = findViewById(R.id.sma_no_net);
         no_data = findViewById(R.id.sma_no_data);
+        server_error = findViewById(R.id.sma_server_error);
         add_class_tut = findViewById(R.id.sma_join_class);
         refresh = findViewById(R.id.sma_refresh);
 
@@ -243,7 +246,10 @@ public class student_main_activity extends AppCompatActivity implements Navigati
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_profile:
-                Toast.makeText(student_main_activity.this," Soon",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(student_main_activity.this," Soon",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(student_main_activity.this, profile.class);
+                intent.putExtra("type","student");
+                startActivity(intent);
                 break;
             case R.id.nav_logout:
                 String login_status = user_info.getString("login_state","");
@@ -252,7 +258,10 @@ public class student_main_activity extends AppCompatActivity implements Navigati
                 }
                 break;
             case R.id.nav_about:
-                Toast.makeText(student_main_activity.this," Soon ",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(student_main_activity.this," Soon ",Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(student_main_activity.this, about.class);
+                intent2.putExtra("type","student");
+                startActivity(intent2);
                 break;
         }
 
@@ -346,9 +355,7 @@ public class student_main_activity extends AppCompatActivity implements Navigati
             @Override
             public void onErrorResponse(VolleyError error) {
                 //Toast.makeText(student_main_activity.this, "No Connection", Toast.LENGTH_SHORT).show();
-                refresh.setRefreshing(false);
-                loader.setVisibility(View.GONE);
-                no_net.setVisibility(View.VISIBLE);
+                check_connection();
 
             }
         }){
@@ -374,10 +381,10 @@ public class student_main_activity extends AppCompatActivity implements Navigati
         editor.putString("class_id",classlist.get(position).getId());
         editor.apply();
 
-        Toast.makeText(student_main_activity.this, classlist.get(position).getTitle()+"\nFunction: Soon", Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(student_main_activity.this, teacher_activity_class_view.class);
+        //Toast.makeText(student_main_activity.this, classlist.get(position).getTitle()+"\nFunction: Soon", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(student_main_activity.this, student_activity_class_view.class);
         //intent.putExtra("code",String.valueOf(position));
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public void openDialog() {
@@ -451,7 +458,50 @@ public class student_main_activity extends AppCompatActivity implements Navigati
         loader.setVisibility(View.VISIBLE);
         no_net.setVisibility(View.GONE);
         no_data.setVisibility(View.GONE);
+        server_error.setVisibility(View.GONE);
         add_class_tut.setVisibility(View.GONE);
         load_class();
+    }
+
+    private void check_connection() {
+        String uRl = "https://pastebin.com/raw/Kj6KYmV1";
+
+        StringRequest request = new StringRequest(Request.Method.GET, uRl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject = null;
+                        String internet;
+
+                        try {
+                            jsonObject = new JSONObject(response.toString());
+                            internet = jsonObject.getString("internet");
+                            if(internet.equals("true")) {
+                                refresh.setRefreshing(false);
+                                loader.setVisibility(View.GONE);
+                                server_error.setVisibility(View.VISIBLE);
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            refresh.setRefreshing(false);
+                            loader.setVisibility(View.GONE);
+                            server_error.setVisibility(View.VISIBLE);
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                refresh.setRefreshing(false);
+                loader.setVisibility(View.GONE);
+                no_net.setVisibility(View.VISIBLE);
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
     }
 }

@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".teacher.teacher_fragment_class_notification">
-    
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".student.student_fragment_class_attendance">
+
     <com.github.ybq.android.spinkit.SpinKitView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tfcn_loader"
+        android:id="@+id/sfca_loader"
         style="@style/SpinKitView.Small.Wave"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -16,7 +16,7 @@
         app:SpinKit_Color="@android:color/holo_red_light" />
 
     <ImageView
-        android:id="@+id/tfcn_no_net"
+        android:id="@+id/sfca_no_net"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
@@ -24,21 +24,20 @@
         android:visibility="invisible"/>
 
     <ImageView
-        android:id="@+id/tfcn_no_data"
+        android:id="@+id/sfca_no_data"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        android:src="@drawable/no_notification"
+        android:src="@drawable/no_data"
         android:visibility="gone"/>
 
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/tfcn_refresh"
+        android:id="@+id/sfca_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tfcn_Recyclerview"
+            android:id="@+id/sfca_Recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Students"
